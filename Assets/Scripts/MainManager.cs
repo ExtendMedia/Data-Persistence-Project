@@ -36,6 +36,7 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+        InitScoreText();
     }
 
     private void Update()
@@ -59,18 +60,28 @@ public class MainManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreText.text = $"{GameManager.Instance.playerName} score: {m_Points}";
     }
 
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+    }
+
+    void InitScoreText()
+    {
+        ScoreText.text = $"{GameManager.Instance.playerName} score: 0";
+
     }
 }
