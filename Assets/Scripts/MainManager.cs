@@ -11,6 +11,7 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    [SerializeField] private Text highScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -37,6 +38,7 @@ public class MainManager : MonoBehaviour
             }
         }
         InitScoreText();
+        InitHighScoreText();
     }
 
     private void Update()
@@ -77,11 +79,18 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        GameManager.Instance.AddScore(GameManager.Instance.playerName, m_Points);
     }
 
     void InitScoreText()
     {
         ScoreText.text = $"{GameManager.Instance.playerName} score: 0";
 
+    }
+
+    void InitHighScoreText()
+    {
+        if (GameManager.Instance.highScore.Count>0) highScoreText.text = $"Best Score: {GameManager.Instance.highScore[0].name}: {GameManager.Instance.highScore[0].score}";
+        else highScoreText.text = $"Best Score:";
     }
 }
