@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         {
             string json = File.ReadAllText(path);
             HighScore wrapper = JsonUtility.FromJson<HighScore>(json);
-            if (wrapper.highScoreList != null) highScore = wrapper.highScoreList;
+            if (wrapper != null && wrapper.highScoreList != null) highScore = wrapper.highScoreList;
 
         }
     }
