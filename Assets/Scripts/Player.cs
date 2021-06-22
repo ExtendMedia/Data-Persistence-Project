@@ -1,5 +1,5 @@
 using System;
-
+[Serializable]
 public class Player : IComparable<Player>
 {
     public string name;

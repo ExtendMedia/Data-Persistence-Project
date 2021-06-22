@@ -20,6 +20,7 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         nameField.text = GameManager.Instance.playerName;
+        GameManager.Instance.LoadHighScore();
     }
 
     // Update is called once per frame
@@ -48,7 +49,7 @@ public class MainMenuManager : MonoBehaviour
         if (nameField.text.Length == 3)
         {
             newGameButton.interactable = true;
-            GameManager.Instance.playerName = nameField.text;
+            GameManager.Instance.playerName = nameField.text.ToUpper();
         }
         else
         {

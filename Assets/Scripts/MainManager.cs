@@ -16,10 +16,11 @@ public class MainManager : MonoBehaviour
     
     private bool m_Started = false;
     private int m_Points;
-    
-    private bool m_GameOver = false;
 
-    
+    private bool m_GameOver = false;
+    private int m_BricksNb = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +36,7 @@ public class MainManager : MonoBehaviour
                 var brick = Instantiate(BrickPrefab, position, Quaternion.identity);
                 brick.PointValue = pointCountArray[i];
                 brick.onDestroyed.AddListener(AddPoint);
+                m_BricksNb++;
             }
         }
         InitScoreText();
@@ -73,6 +75,8 @@ public class MainManager : MonoBehaviour
     {
         m_Points += point;
         ScoreText.text = $"{GameManager.Instance.playerName} score: {m_Points}";
+        m_BricksNb--;
+        if (m_BricksNb == 0) GameOver();
     }
 
     public void GameOver()
@@ -80,6 +84,7 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
         GameManager.Instance.AddScore(GameManager.Instance.playerName, m_Points);
+        GameManager.Instance.SaveHighScore();
     }
 
     void InitScoreText()
